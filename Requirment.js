@@ -4,93 +4,98 @@
 3- apply all the concepts you learned during this lab (Naming, comments,  functions)
 */
 
-class pt {
+class point {
   //this constructor is used to construct the pt class
-  constructor(coordX, coordY) {
-    this.coordX = coordX;
-    this.coordY = coordY;
+  constructor(xCoordinate, yCoordinate) {
+    this.xCoordinate = xCoordinate;
+    this.yCoordinate = yCoordinate;
   }
 }
 
 class Rectangle {
-  constructor(startingPoint, w, h) {
-    if (!h || h <= 0 || !w || w <= 0) {
+  constructor(startingPoint, width, height) {
+    if (!height || height <= 0 || !width || width <= 0) {
       throw Error("invalid Width and Height"); // throws an error in cas of width or height < 0
     }
     this.startingPoint = startingPoint;
-    this.w = w; // w is the width
-    this.h = h; // h is the height
+    this.width = width; // w is the width
+    this.height = height; // h is the height
   }
 
   // ***************
   // METHODS
   // ***************
 
-  area() {
-    return this.w * this.h;
+  calculateArea() {
+    const calculatedArea = this.width * this.height;
+    return calculatedArea;
   }
 
   calculatePerimeter() {
-    return 2 * this.w + 2 * this.h;
+    const calculatedPerimeter = 2 * this.width + 2 * this.height;
+    return calculatedPerimeter;
   }
   // getPerimeter() {
   //   return 2 * this.w + 2 * this.h;
   // }
 
-  updateMyHeight(height) {
+  updateHeight(height) {
     if (height && height > 0) {
-      this.h = height;
+      this.height = height;
     }
-    //TODO: handle case of updating the height of square
   }
 
-  update({ startingPoint, width, height }) {
+  updateSides({height,width,startingPoint}) {
     if (!height || height <= 0 || !width || width <= 0) {
       throw Error("invalid Width and Height"); // throws an error in cas of width or height < 0
     }
     this.startingPoint = startingPoint;
-    this.w = width;
-    this.h = height;
+    this.width = width;
+    this.height = height;
   }
 
-  fetchHeight() {
-    return this.h;
+  getHeight() {
+    return this.height;
   }
 
   //function that print the endpoints
-  endPoints() {
-    const topRight = this.startingPoint.coordX + this.broad;
-    const bottomLeft = this.startingPoint.coordY + this.h;
+  printEndPoints() {
+    const topRight = this.startingPoint.xCoordinate + this.width;
+    const bottomLeft = this.startingPoint.yCoordinate + this.height;
     console.log("End Point X-Axis (Top Right): " + topRight);
     console.log("End Point Y-Axis (Bottom Left): " + bottomLeft);
   }
 
   getWidth() {
-    return this.w;
+    return this.width;
   }
 }
 
-function buildObject(Width, x, Height, y) {
-  const mainPoint = new pt(x, y);
-  const rect = new Rectangle(mainPoint, Width, Height);
-  return rect;
+function createRectangle(width, x, height, y) {
+  const mainPoint = new point(x, y);
+  const rectangle = new Rectangle(mainPoint, width, height);
+  return rectangle;
 }
 
-function construct_Square(cord_x, CordY, SquareHeight) {
-  let square;
-  if (!SquareHeight || SquareHeight <= 0) {
-    square = buildObject(SquareHeight, cord_x, SquareHeight, CordY);
-  }
-  const square_area = square.area();
+function createSquare(xCoordinate, yCoordinate, height) {
+  const mainPoint = new point(xCoordinate, yCoordinate);
+  const square = new Rectangle(mainPoint, height, height);
+  return square;
+}
+
+function constructSquare(xCoordinate, yCoordinate, height) {
+  let square = buildObject(height, xCoordinate, height, yCoordinate);
+  const squareArea = square.calculateArea();
   const squarePerimeter = square.calculatePerimeter();
-  console.log("square Area ", square_area);
+  console.log("square Area ", squareArea);
   console.log("square Perimeter ", squarePerimeter);
+  return square;
 }
 
-const myRect = buildObject(2, 3, 5, 4);
-const sq = construct_Square();
+const rectangle = createRectangle(2, 3, 5, 4);
+const square = createSquare(3,3,5);
 
-console.log(sq.calculatePerimeter());
-sq.endPoints();
+console.log(square.calculatePerimeter());
+square.printEndPoints();
 
-myRect.updateMyHeight(3);
+rectangle.updateHeight(3);
